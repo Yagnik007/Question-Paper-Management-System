@@ -1,0 +1,65 @@
+﻿@model Question_Paper_Management.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <center class="container my-5">
+        <h4>Edit User</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserID)
+
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10 mb-2">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                <div class="input-group mb-2">
+                    @Html.PasswordFor(model => model.PasswordHash, new { @class = "form-control", @required = "required", autocomplete = "new-password" })
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        </span>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10 mb-2">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required", type = "email" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Admin", "Teacher", "Student" }), "Select Role", new { @class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="btn-group ">
+                <input type="submit" value="Save" class="btn btn-primary me-2" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+    </center>
+}   
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

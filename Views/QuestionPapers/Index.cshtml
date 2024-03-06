@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Question_Paper_Management.Models.QuestionPaper>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<center class="container mt-3">
+    @if (Session["Role"].ToString() != "Student")
+    {
+        <div class="mb-3">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+        </div>
+    }
+
+    <center class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-transform: uppercase; font-weight: 600;">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p class="card-text" style="font-style:italic;">@Html.DisplayFor(modelItem => item.Description)</p>
+                        @if (Session["Role"].ToString() != "Student")
+                        {
+                            <p class="card-text">Creation Date: @Html.DisplayFor(modelItem => item.CreationDate)</p>
+                            <p class="card-text">Status: <span style="text-transform: uppercase; font-weight: 900;">@Html.DisplayFor(modelItem => item.Status)</span></p>
+                            if (Session["Role"].ToString() == "Admin")
+                            {
+                                <p class="card-text">by <span style="font-weight: 600;">@Html.DisplayFor(modelItem => item.User.Username)</span></p>
+                            }
+
+                    <div class="btn-group">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.QuestionPaperID }, new { @class = "btn btn-primary me-2" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.QuestionPaperID }, new { @class = "btn btn-danger me-2" })
+                        @Html.ActionLink("Add Question", "AddQuestion", new { id = item.QuestionPaperID }, new { @class = "btn btn-info me-2" })
+                        @Html.ActionLink("View", "ViewQuestionPaper", new { id = item.QuestionPaperID }, new { @class = "btn btn-secondary me-2" })
+                        @if (item.Status == "Created")
+                        {
+                            @Html.ActionLink("Send for Approval", "SendForApproval", new { id = item.QuestionPaperID }, new { @class = "btn btn-warning me-2" })
+                        }
+                    </div>
+                        }
+                        @if (Session["Role"].ToString() == "Student")
+                        {
+                            <div class="mt-3">
+                                @Html.ActionLink("Attempt", "AttemptQuestionPaper", new { id = item.QuestionPaperID }, new { @class = "btn btn-secondary" })
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+    </center>
+</center>

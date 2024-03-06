@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Question_Paper_Management.Models.QuestionPaper>
+
+@{
+    ViewBag.Title = "ApprovedList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center class="container">
+    <h2 class="mt-5 mb-4">ApprovedList</h2>
+
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <p class="card-text"><strong>Creation Date:</strong> @Html.DisplayFor(modelItem => item.CreationDate)</p>
+                <p class="card-text"><strong>Username:</strong> @Html.DisplayFor(modelItem => item.User.Username)</p>
+                @Html.ActionLink("View","ViewQuestionPaper", "QuestionPapers", new { id = item.QuestionPaperID }, new { @class = "btn btn-secondary me-2" })
+            </div>
+        </div>
+    }
+</center>

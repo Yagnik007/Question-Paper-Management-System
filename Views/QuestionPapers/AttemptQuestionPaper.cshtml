@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Question_Paper_Management.Models.Question>
+
+@{
+    ViewBag.Title = "ViewQuestionPaper";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<center class="container mt-5">
+    <div class="row">
+        <form id="quizForm" action="@Url.Action("AttemptQuestionPaper", "QuestionPapers")" method="post">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-weight: 600; text-transform: capitalize;">@Html.DisplayFor(modelItem => item.QuestionText)</h5>
+                            <input type="hidden" name="questionIds[]" value="@item.QuestionID" />
+                            <input type="hidden" name="correctAnswers[@item.QuestionID]" value="@item.CorrectAnswer" />
+                            <p class="card-text"><input type="radio" name="selectedOptions[@item.QuestionID]" value="1" data-text="@item.Option1" /> Option 1: @Html.DisplayFor(modelItem => item.Option1)</p>
+                            <p class="card-text"><input type="radio" name="selectedOptions[@item.QuestionID]" value="2" data-text="@item.Option2" /> Option 2: @Html.DisplayFor(modelItem => item.Option2)</p>
+                            <p class="card-text"><input type="radio" name="selectedOptions[@item.QuestionID]" value="3" data-text="@item.Option3" /> Option 3: @Html.DisplayFor(modelItem => item.Option3)</p>
+                            <p class="card-text"><input type="radio" name="selectedOptions[@item.QuestionID]" value="4" data-text="@item.Option4" /> Option 4: @Html.DisplayFor(modelItem => item.Option4)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        <div class="btn-group mt-3">
+                <button type="button" id="submitQuiz" class="btn btn-primary me-2">Submit</button>
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-block" })
+            </div>
+        </form>
+    </div>
+
+    
+</center>
+
+<script>
+    $(document).ready(function () {
+        $("#submitQuiz").click(function () {
+            var correctCount = 0;
+
+            // Loop through each question
+            $("form#quizForm").find(".card").each(function () {
+                var questionId = $(this).find("input[name^='questionIds']").val();
+                console.log("Question ID: " + questionId);
+                var selectedOption = $(this).find("input[name='selectedOptions[" + questionId + "]']:checked").val();
+                console.log("Selected Option: " + selectedOption);
+                var correctAnswer = $(this).find("input[name='correctAnswers[" + questionId + "]']").val();
+                console.log("Correct Answer: " + correctAnswer);
+
+                if (selectedOption === correctAnswer) {
+                    correctCount++;
+                }
+            });
+
+            alert("You got " + correctCount + " out of " + $("form#quizForm").find(".card").length + " questions correct.");
+        });
+    });
+
+</script>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ffd089456b964ca99bf71485fb776b55" Name="Diagram1" ZoomLevel="103">
+        <EntityTypeShape EntityType="QPManagementModel.Answer" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QPManagementModel.Approval" Width="1.5" PointX="5.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QPManagementModel.Permission" Width="1.5" PointX="12.375" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QPManagementModel.QuestionPaper" Width="1.5" PointX="7.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QPManagementModel.Question" Width="1.5" PointX="10.125" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QPManagementModel.User" Width="1.5" PointX="7.375" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="QPManagementModel.FK__Answers__Questio__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="QPManagementModel.FK__Answers__UserID__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="QPManagementModel.FK__Approvals__Appro__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="QPManagementModel.FK__Approvals__Quest__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="QPManagementModel.FK__QuestionP__Creat__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="QPManagementModel.FK__Questions__Quest__3E52440B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

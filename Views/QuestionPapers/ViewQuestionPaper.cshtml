@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Question_Paper_Management.Models.Question>
+
+@{
+    ViewBag.Title = "ViewQuestionPaper";
+}
+
+<center class="container my-4">
+    <h2>ViewQuestionPaper</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: 600; text-transform: capitalize;">@Html.DisplayFor(modelItem => item.QuestionText)</h5>
+                        <p class="card-text">Option 1: @Html.DisplayFor(modelItem => item.Option1)</p>
+                        <p class="card-text">Option 2: @Html.DisplayFor(modelItem => item.Option2)</p>
+                        <p class="card-text">Option 3: @Html.DisplayFor(modelItem => item.Option3)</p>
+                        <p class="card-text">Option 4: @Html.DisplayFor(modelItem => item.Option4)</p>
+                        @if (Session["Role"].ToString() != "Student")
+                        {
+                            <p class="card-text" style="font-weight: 600; text-transform: capitalize;">Correct Answer: @Html.DisplayFor(modelItem => item.CorrectAnswer)</p>
+                            <p class="card-text">Question Paper Title: @Html.DisplayFor(modelItem => item.QuestionPaper.Title)</p>
+                            <div class="btn-group">
+                                <a href="@Url.Action("Edit", "Questions", new { id = item.QuestionID })" class="btn btn-primary me-2">Edit</a>
+                                <a href="@Url.Action("Delete", "Questions", new { id = item.QuestionID })" class="btn btn-danger">Delete</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-block" })
+        </div>
+    </div>
+</center>

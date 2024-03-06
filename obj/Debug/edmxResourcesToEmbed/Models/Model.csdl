@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QPManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="AnswerID" />
+    </Key>
+    <Property Name="AnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SubmissionTimestamp" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__Answers__Questio__4316F928" FromRole="Answers" ToRole="Questions" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Answers__UserID__4222D4EF" FromRole="Answers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Approval">
+    <Key>
+      <PropertyRef Name="ApprovalID" />
+    </Key>
+    <Property Name="ApprovalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionPaperID" Type="Int32" Nullable="false" />
+    <Property Name="ApproverID" Type="Int32" Nullable="false" />
+    <Property Name="ApprovalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ApprovalTimestamp" Type="DateTime" Nullable="false" Precision="7" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Approvals__Appro__47DBAE45" FromRole="Approvals" ToRole="Users" />
+    <NavigationProperty Name="QuestionPaper" Relationship="Self.FK__Approvals__Quest__46E78A0C" FromRole="Approvals" ToRole="QuestionPapers" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="PermissionID" />
+    </Key>
+    <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CanCreateQuestionPaper" Type="Boolean" Nullable="false" />
+    <Property Name="CanEditQuestionPaper" Type="Boolean" Nullable="false" />
+    <Property Name="CanDeleteQuestionPaper" Type="Boolean" Nullable="false" />
+    <Property Name="CanReviewQuestionPaper" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QuestionPaper">
+    <Key>
+      <PropertyRef Name="QuestionPaperID" />
+    </Key>
+    <Property Name="QuestionPaperID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatorID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Approvals" Relationship="Self.FK__Approvals__Quest__46E78A0C" FromRole="QuestionPapers" ToRole="Approvals" />
+    <NavigationProperty Name="User" Relationship="Self.FK__QuestionP__Creat__3B75D760" FromRole="QuestionPapers" ToRole="Users" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Quest__3E52440B" FromRole="QuestionPapers" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Option1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Option2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Option3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Option4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CorrectAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="QuestionPaperID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__Questio__4316F928" FromRole="Questions" ToRole="Answers" />
+    <NavigationProperty Name="QuestionPaper" Relationship="Self.FK__Questions__Quest__3E52440B" FromRole="Questions" ToRole="QuestionPapers" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK__Answers__UserID__4222D4EF" FromRole="Users" ToRole="Answers" />
+    <NavigationProperty Name="Approvals" Relationship="Self.FK__Approvals__Appro__47DBAE45" FromRole="Users" ToRole="Approvals" />
+    <NavigationProperty Name="QuestionPapers" Relationship="Self.FK__QuestionP__Creat__3B75D760" FromRole="Users" ToRole="QuestionPapers" />
+  </EntityType>
+  <Association Name="FK__Answers__Questio__4316F928">
+    <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+    <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="QuestionID" />
+      </Principal>
+      <Dependent Role="Answers">
+        <PropertyRef Name="QuestionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Answers__UserID__4222D4EF">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Answers" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Answers">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Approvals__Appro__47DBAE45">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Approvals" Type="Self.Approval" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Approvals">
+        <PropertyRef Name="ApproverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Approvals__Quest__46E78A0C">
+    <End Role="QuestionPapers" Type="Self.QuestionPaper" Multiplicity="1" />
+    <End Role="Approvals" Type="Self.Approval" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionPapers">
+        <PropertyRef Name="QuestionPaperID" />
+      </Principal>
+      <Dependent Role="Approvals">
+        <PropertyRef Name="QuestionPaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__QuestionP__Creat__3B75D760">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="QuestionPapers" Type="Self.QuestionPaper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="QuestionPapers">
+        <PropertyRef Name="CreatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Questions__Quest__3E52440B">
+    <End Role="QuestionPapers" Type="Self.QuestionPaper" Multiplicity="1" />
+    <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionPapers">
+        <PropertyRef Name="QuestionPaperID" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="QuestionPaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QPManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="Approvals" EntityType="Self.Approval" />
+    <EntitySet Name="Permissions" EntityType="Self.Permission" />
+    <EntitySet Name="QuestionPapers" EntityType="Self.QuestionPaper" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Answers__Questio__4316F928" Association="Self.FK__Answers__Questio__4316F928">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Answers" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Answers__UserID__4222D4EF" Association="Self.FK__Answers__UserID__4222D4EF">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Answers" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Approvals__Appro__47DBAE45" Association="Self.FK__Approvals__Appro__47DBAE45">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Approvals" EntitySet="Approvals" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Approvals__Quest__46E78A0C" Association="Self.FK__Approvals__Quest__46E78A0C">
+      <End Role="QuestionPapers" EntitySet="QuestionPapers" />
+      <End Role="Approvals" EntitySet="Approvals" />
+    </AssociationSet>
+    <AssociationSet Name="FK__QuestionP__Creat__3B75D760" Association="Self.FK__QuestionP__Creat__3B75D760">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="QuestionPapers" EntitySet="QuestionPapers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Questions__Quest__3E52440B" Association="Self.FK__Questions__Quest__3E52440B">
+      <End Role="QuestionPapers" EntitySet="QuestionPapers" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

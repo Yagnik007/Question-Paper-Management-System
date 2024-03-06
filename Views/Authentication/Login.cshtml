@@ -1,0 +1,48 @@
+﻿@model Question_Paper_Management.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<center class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h2 class="card-title text-center mb-4">Login</h2>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                            </div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", required = "required" } })
+                        </div>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.Email)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            </div>
+                            @Html.PasswordFor(model => model.PasswordHash, new { @class = "form-control", placeholder = "Password", required = "required" })
+                        </div>
+                        <div class="invalid-feedback">@Html.ValidationMessageFor(model => model.PasswordHash)</div>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-outline-dark">Login</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</center>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

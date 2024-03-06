@@ -1,0 +1,47 @@
+﻿@model Question_Paper_Management.Models.QuestionPaper
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<center class="container mt-3">
+    <h2 class="text-center mb-4">Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-3 row justify-content-center mb-2">
+            @Html.HiddenFor(model => model.QuestionPaperID)
+            @Html.HiddenFor(model => model.CreationDate)
+            @Html.HiddenFor(model => model.Status)
+            @Html.HiddenFor(model => model.CreatorID)
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group mb-2">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="btn-group text-center mb-2">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    }
+</center>
+
+<div class="text-center mt-2">
+    
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
